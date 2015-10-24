@@ -1,0 +1,6 @@
+* text=auto
+
+*.cs diff=csharp
+
+*.sln merge=binary
+*.csproj merge=binary
