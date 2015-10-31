@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Optional.NET")]
-[assembly: AssemblyDescription(".NET (C#) implementation of Java 8 Optional type.")]
+[assembly: AssemblyDescription(".NET (C#) implementation based on Java 8 Optional type.")]
 [assembly: AssemblyVersion("0.0.1")]
 
 [assembly: ComVisible(false)]
