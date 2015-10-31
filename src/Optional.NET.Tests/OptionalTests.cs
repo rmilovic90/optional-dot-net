@@ -65,6 +65,36 @@ namespace Optional.NET.Tests
         }
 
         [Test]
+        public void Optional_WhenNotPresent_ReturnsCurrentInstanceWhenFiltered()
+        {
+            var optional = Optional<string>.Empty;
+
+            var result = optional.Filter(v => v.Contains("test"));
+
+            Assert.That(result, Is.SameAs(optional));
+        }
+
+        [Test]
+        public void Optional_WhenPredicateIsTrue_ReturnsCurrentInstanceWhenFiltered()
+        {
+            var optional = Optional<string>.Of("testing");
+
+            var result = optional.Filter(v => v.Contains("test"));
+
+            Assert.That(result, Is.SameAs(optional));
+        }
+
+        [Test]
+        public void Optional_WhenPredicateIsFalse_ReturnsEmptyOptional()
+        {
+            var optional = Optional<string>.Of("testing");
+
+            var result = optional.Filter(v => v.Contains("aaa"));
+
+            Assert.That(result.IsPresent, Is.False);
+        }
+
+        [Test]
         public void Optional_WhenPresent_ReturnsActualValue()
         {
             const string value = "test";

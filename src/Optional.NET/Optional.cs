@@ -47,6 +47,13 @@ namespace Optional.NET
             if (IsPresent) action.Invoke(_value);
         }
 
+        public Optional<T> Filter(Func<T, bool> predicate)
+        {
+            if (!IsPresent) return this;
+
+            return predicate.Invoke(GetValue()) ? this : Empty;
+        } 
+
         public T OrElseGet(T fallbackValue) => _value ?? fallbackValue;
 
         public T OrElseGet(Func<T> function) => _value ?? function.Invoke();
