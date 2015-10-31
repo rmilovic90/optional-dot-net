@@ -57,7 +57,7 @@ namespace Optional.NET
 
         public T OrElseGet(Func<T> function) => _value ?? function.Invoke();
 
-        public T OrElseThrow<TE>(Func<TE> function) where TE : Exception
+        public T OrElseThrow<TException>(Func<TException> function) where TException : Exception
         {
             if (IsPresent) return GetValue();
 
