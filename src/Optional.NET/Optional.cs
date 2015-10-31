@@ -22,9 +22,9 @@ namespace Optional.NET
             return !optional1.Equals(optional2);
         }
 
-        public Optional() {}
+        private Optional() {}
 
-        public Optional(T value)
+        private Optional(T value)
         {
             _value = value;
         }
