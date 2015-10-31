@@ -67,6 +67,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="OptionalEqualityTests.cs" />
+    <Compile Include="OptionalTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
