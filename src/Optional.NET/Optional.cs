@@ -9,7 +9,7 @@ namespace Optional.NET
         public static bool operator ==(Optional<T> optional1, Optional<T> optional2)
         {
             if (((object) optional1) == null || ((object) optional2) == null)
-                return object.Equals(optional1, optional2);
+                return Equals(optional1, optional2);
 
             return optional1.Equals(optional2);
         }
@@ -17,7 +17,7 @@ namespace Optional.NET
         public static bool operator !=(Optional<T> optional1, Optional<T> optional2)
         {
             if (((object) optional1) == null || ((object) optional2) == null)
-                return !object.Equals(optional1, optional2);
+                return !Equals(optional1, optional2);
 
             return !optional1.Equals(optional2);
         }
@@ -71,9 +71,7 @@ namespace Optional.NET
 
             if (optional == null) return false;
 
-            if (!optional.IsPresent) return false;
-
-            return Equals(optional.GetValue());
+            return optional.IsPresent && Equals(optional.GetValue());
         }
 
         public override int GetHashCode() => IsPresent ? _value.GetHashCode() : 0;
