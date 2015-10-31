@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Optional.NET.Tests
@@ -82,6 +83,28 @@ namespace Optional.NET.Tests
             var result = optional.Filter(v => v.Contains("test"));
 
             Assert.That(result, Is.SameAs(optional));
+        }
+
+        [Test]
+        public void Optional_WhenNotPresent_ReturnsEmptyOptionalOfMappingType()
+        {
+            var optional = Optional<List<int>>.Empty;
+
+            var result = optional.Map(t => t.ToString());
+
+            Assert.That(result, Is.InstanceOf(typeof(Optional<string>)));
+            Assert.That(result.IsPresent, Is.False);
+        }
+
+        [Test]
+        public void Optional_WhenPresent_ReturnsOptionalOfMappingType()
+        {
+            var optional = Optional<List<int>>.Of(new List<int> { 1, 2 });
+
+            var result = optional.Map(t => t.ToString());
+
+            Assert.That(result, Is.InstanceOf(typeof(Optional<string>)));
+            Assert.That(result.IsPresent, Is.True);
         }
 
         [Test]

@@ -47,12 +47,11 @@ namespace Optional.NET
             if (IsPresent) action.Invoke(_value);
         }
 
-        public Optional<T> Filter(Func<T, bool> predicate)
-        {
-            if (!IsPresent) return this;
+        public Optional<T> Filter(Func<T, bool> predicate) =>
+            IsPresent ? (predicate.Invoke(GetValue()) ? this : Empty) : this;
 
-            return predicate.Invoke(GetValue()) ? this : Empty;
-        } 
+        public Optional<TMapped> Map<TMapped>(Func<T, TMapped> mapper) where TMapped : class =>
+            IsPresent ? Optional<TMapped>.Of(mapper.Invoke(GetValue())) : Optional<TMapped>.Empty;
 
         public T OrElseGet(T fallbackValue) => _value ?? fallbackValue;
 
