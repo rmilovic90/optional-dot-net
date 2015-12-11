@@ -2,25 +2,9 @@
 
 namespace Optional.NET
 {
-    public class Optional<T> : IEquatable<T> where T : class
+    public class Optional<T> where T : class
     {
         readonly T _value;
-
-        public static bool operator ==(Optional<T> optional1, Optional<T> optional2)
-        {
-            if (((object) optional1) == null || ((object) optional2) == null)
-                return Equals(optional1, optional2);
-
-            return optional1.Equals(optional2);
-        }
-
-        public static bool operator !=(Optional<T> optional1, Optional<T> optional2)
-        {
-            if (((object) optional1) == null || ((object) optional2) == null)
-                return !Equals(optional1, optional2);
-
-            return !optional1.Equals(optional2);
-        }
 
         private Optional() {}
 
@@ -64,20 +48,18 @@ namespace Optional.NET
             throw function.Invoke();
         }
 
-        public bool Equals(T other)
-        {
-            if (other == null) return false;
-
-            return IsPresent && _value.Equals(other);
-        }
-
         public override bool Equals(object obj)
         {
             var optional = obj as Optional<T>;
 
             if (optional == null) return false;
 
-            return optional.IsPresent && Equals(optional.GetValue());
+            if (IsPresent && optional.IsPresent)
+            {
+                return GetValue().Equals(optional.GetValue());
+            }
+
+            return false;
         }
 
         public override int GetHashCode() => IsPresent ? _value.GetHashCode() : 0;
